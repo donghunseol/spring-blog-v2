@@ -6,10 +6,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Repository
 public class BoardNativeRepository {
     private final EntityManager em; // DI
+
+    public List<Board> findAll(){
+        Query query = em.createNativeQuery("select * from  board_tb order by id desc ", Board.class);
+        return (List<Board>) query.getResultList();
+    }
 
     @Transactional // 고립성
     public void save(String title, String content, String username){
