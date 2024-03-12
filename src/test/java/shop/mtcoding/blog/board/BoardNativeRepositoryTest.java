@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Import;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @Import(BoardNativeRepository.class)
 @DataJpaTest
 public class BoardNativeRepositoryTest {
@@ -29,8 +31,27 @@ public class BoardNativeRepositoryTest {
 
         // org.assrtj.core.api
         // 데이터 검증
-        Assertions.assertThat(boardList.size()).isEqualTo(4);
-        Assertions.assertThat(boardList.get(2).getUsername()).isEqualTo("ssar");
+        assertThat(boardList.size()).isEqualTo(4);
+        assertThat(boardList.get(2).getUsername()).isEqualTo("ssar");
     }
 
+    @Test
+    public void findById_test(){
+        // given
+        int id = 1;
+
+        // when
+        Board board = boardNativeRepository.findById(id);
+
+        // then
+        // 눈 검증
+        System.out.println("findById_test : " + board);
+        System.out.println("findById_test/id : " + board.getId()); // 확실하게 구분 하기 위해 이름을 정확히 명시
+        System.out.println("findById_test/username : " + board.getUsername()); // ssar을 조회하려는데 order by로 인해 2번지로 조회
+
+        // org.assrtj.core.api
+        // 데이터 검증
+        assertThat(board.getTitle()).isEqualTo("제목1");
+        assertThat(board.getContent()).isEqualTo("내용1");
+    }
 }
