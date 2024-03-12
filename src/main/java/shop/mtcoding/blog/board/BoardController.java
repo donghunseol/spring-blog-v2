@@ -15,6 +15,7 @@ import java.util.List;
 public class BoardController {
 
     private final BoardNativeRepository boardNativeRepository; // 의존
+    private final BoardPersistRepository boardPersistRepository;
 
     @PostMapping("/board/{id}/update")
     public String update(@PathVariable Integer id, String title, String content, String username) {
@@ -36,8 +37,8 @@ public class BoardController {
     }
 
     @PostMapping("/board/save")
-    public String save(String title, String content, String username) {
-        boardNativeRepository.save(title, content, username);
+    public String save(BoardRequest.SaveDTO requestDTO) {
+        boardPersistRepository.save(requestDTO.toEntity());
         return "redirect:/";
     }
 
