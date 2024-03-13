@@ -1,5 +1,6 @@
 package shop.mtcoding.blog.board;
 
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -15,6 +16,24 @@ public class BoardPersistRepositoryTest {
 
     @Autowired // DI (IoC 에 있는 걸 DI 해준다)
     private BoardPersistRepository boardPersistRepository;
+    @Autowired
+    private EntityManager em;
+
+    @Test
+    public void deleteByIdV2_Test() {
+        // given
+        int id = 1;
+
+        // when
+        boardPersistRepository.deleteByIdV2(id);
+
+        // 버퍼에 쥐고 있는 쿼리를 즉시 전송
+        em.flush();
+
+        // then
+
+
+    }
 
     @Test
     public void findById_test() {
