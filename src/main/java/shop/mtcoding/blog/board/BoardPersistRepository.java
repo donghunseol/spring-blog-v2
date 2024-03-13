@@ -13,6 +13,11 @@ import java.util.List;
 public class BoardPersistRepository {
     private final EntityManager em; // DI
 
+    public Board findById(int id) {
+        Board board = em.find(Board.class, id); // (클래스, 프라이머리키)
+        return board;
+    }
+
     public List<Board> findAll(){
         Query query = em.createQuery("SELECT b FROM Board b  ORDER BY b.id DESC", Board.class); // JPQL에 대한 연습이 필요하다.
         return query.getResultList();
