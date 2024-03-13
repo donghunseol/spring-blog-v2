@@ -30,7 +30,13 @@ public class Board { // 모델링 (DB 세상에 있는 값을 가져와서 모�
         this.username = username;
     }
 
-    public String getTime(){
+    public void update(BoardRequest.UpdateDTO requestDTO) {
+        this.title = requestDTO.getTitle();
+        this.content = requestDTO.getContent();
+        this.username = requestDTO.getUsername();
+    }
+
+    public String getTime() {
         return MyDateUtil.timestampFormat(createdAt);
     }
 }

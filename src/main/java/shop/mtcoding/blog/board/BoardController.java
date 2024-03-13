@@ -3,6 +3,7 @@ package shop.mtcoding.blog.board;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,11 +18,11 @@ public class BoardController {
     private final BoardNativeRepository boardNativeRepository; // 의존
     private final BoardPersistRepository boardPersistRepository;
 
-    @PostMapping("/board/{id}/update")
-    public String update(@PathVariable Integer id, String title, String content, String username) {
-        boardNativeRepository.updateById(id, title, content, username);
-        return "redirect:/board/" + id;
-    }
+@PostMapping("/board/{id}/update")
+public String update(@PathVariable Integer id, BoardRequest.UpdateDTO requestDTO) {
+    boardPersistRepository.updateById(id, requestDTO);
+    return "redirect:/board/" + id;
+}
 
     @GetMapping("/board/{id}/update-form")
     public String updateForm(@PathVariable Integer id, HttpServletRequest request) {

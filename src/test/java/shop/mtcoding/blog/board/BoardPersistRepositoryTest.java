@@ -20,6 +20,18 @@ public class BoardPersistRepositoryTest {
     private EntityManager em;
 
     @Test
+    public void updateById_test() {
+        // given
+        int id = 1;
+        String title = "제목수정1";
+
+        // when
+        Board board = boardPersistRepository.findById(id);
+        board.setTitle(title); // PC에 있는 값을 변경 (트랜잭션이 종료되면 쿼리가 날아간다!)
+        em.flush();
+    }
+
+    @Test
     public void deleteByIdV2_Test() {
         // given
         int id = 1;

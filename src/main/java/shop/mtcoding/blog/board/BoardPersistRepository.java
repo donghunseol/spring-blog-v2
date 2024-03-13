@@ -13,6 +13,12 @@ import java.util.List;
 public class BoardPersistRepository {
     private final EntityManager em; // DI
 
+    @Transactional
+    public void updateById(int id, BoardRequest.UpdateDTO requestDTO) {
+        Board board = findById(id);
+        board.update(requestDTO);
+    } // 더티 체킹
+
     // 직접 조회
     @Transactional
     public void deleteByIdV2(int id) {
@@ -33,7 +39,7 @@ public class BoardPersistRepository {
         return board;
     }
 
-    public List<Board> findAll(){
+    public List<Board> findAll() {
         Query query = em.createQuery("SELECT b FROM Board b  ORDER BY b.id DESC", Board.class); // JPQL에 대한 연습이 필요하다.
         return query.getResultList();
     }
@@ -44,5 +50,8 @@ public class BoardPersistRepository {
         em.persist(board); // 전달 (만약 pk를 가지고 들어간다면? update가 된다!)
         // 2. board -> 영속 객체
         return board;
+    }
+
+    public void updateById() {
     }
 }
