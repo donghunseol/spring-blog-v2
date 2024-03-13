@@ -25,7 +25,7 @@ public class BoardController {
 
     @GetMapping("/board/{id}/update-form")
     public String updateForm(@PathVariable Integer id, HttpServletRequest request) {
-        Board board = boardNativeRepository.findById(id);
+        Board board = boardPersistRepository.findById(id);
         request.setAttribute("board", board);
         return "board/update-form";
     }
