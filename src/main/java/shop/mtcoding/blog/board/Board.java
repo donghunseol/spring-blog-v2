@@ -25,7 +25,7 @@ public class Board { // 모델링 (DB 세상에 있는 값을 가져와서 모�
     // ORM 진행 (ORM 할 것이다.)
     // @JoinColumn(name = "user_id") // 이것과 아래는 같은 현상이 일어난다.
     @ManyToOne // 연관 관계로 보고 설정된다.
-    private User user; // user_id (앞의 이름은 변수명으로 결정된다 users 면 users_id 가 된다)
+    private User user; // DB에 컬럼 -> user_id (앞의 이름은 변수명으로 결정된다 users 면 users_id 가 된다)
 
     @CreationTimestamp // pc -> db 로 들어 갈때 (날짜 주입)
     private Timestamp createdAt;
