@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.query.sql.internal.ParameterRecognizerImpl;
+import shop.mtcoding.blog.user.User;
 import shop.mtcoding.blog.util.MyDateUtil;
 
 import java.sql.Timestamp;
@@ -19,24 +21,12 @@ public class Board { // 모델링 (DB 세상에 있는 값을 가져와서 모�
     private Integer id;
     private String title;
     private String content;
-    private String username;
+
+    // ORM 진행 (ORM 할 것이다.)
+    // @JoinColumn(name = "user_id") // 이것과 아래는 같은 현상이 일어난다.
+    @ManyToOne // 연관 관계로 보고 설정된다.
+    private User user; // user_id (앞의 이름은 변수명으로 결정된다 users 면 users_id 가 된다)
 
     @CreationTimestamp // pc -> db 로 들어 갈때 (날짜 주입)
     private Timestamp createdAt;
-
-    public Board(String title, String content, String username) {
-        this.title = title;
-        this.content = content;
-        this.username = username;
-    }
-
-    public void update(BoardRequest.UpdateDTO requestDTO) {
-        this.title = requestDTO.getTitle();
-        this.content = requestDTO.getContent();
-        this.username = requestDTO.getUsername();
-    }
-
-    public String getTime() {
-        return MyDateUtil.timestampFormat(createdAt);
-    }
 }
