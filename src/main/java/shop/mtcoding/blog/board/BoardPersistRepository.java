@@ -13,6 +13,11 @@ import java.util.List;
 public class BoardPersistRepository {
     private final EntityManager em; // DI
 
+    public List<Board> findAll(){
+        Query query = em.createQuery("SELECT b FROM Board b  ORDER BY b.id DESC", Board.class); // JPQL에 대한 연습이 필요하다.
+        return query.getResultList();
+    }
+
     @Transactional // 고립성
     public Board save(Board board) {
         // 1. 비영속 객체
