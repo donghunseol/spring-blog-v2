@@ -23,10 +23,6 @@ public class UserController {
     public String login(UserRequest.LoginDTO requestDTO) {
         User sessionUser = userRepository.findByUsername(requestDTO);
 
-        if (sessionUser == null) {
-            return "redirect:/login-form";
-        }
-
         session.setAttribute("sessionUser", sessionUser);
         return "redirect:/";
     }
@@ -43,6 +39,7 @@ public class UserController {
 
     @GetMapping("/logout")
     public String logout() {
+        session.invalidate();
         return "redirect:/";
     }
 }
