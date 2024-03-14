@@ -1,5 +1,7 @@
 server:
   servlet:
+    session:
+      tracking-modes: COOKIE
     encoding:
       charset: utf-8
       force: true
@@ -29,5 +31,4 @@ spring:
     properties:
       hibernate:
         format_sql: true
-#        default_batch_fetch_size: 10
     defer-datasource-initialization: true

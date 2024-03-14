@@ -22,7 +22,6 @@ public class UserController {
     @PostMapping("/login")
     public String login(UserRequest.LoginDTO requestDTO) {
         User sessionUser = userRepository.findByUsername(requestDTO);
-
         session.setAttribute("sessionUser", sessionUser);
         return "redirect:/";
     }
