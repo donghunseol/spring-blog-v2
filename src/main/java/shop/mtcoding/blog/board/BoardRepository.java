@@ -37,13 +37,12 @@ public class BoardRepository {
         }
         List<User> userList = query.getResultList();
 
-        for (Board board : boardList) {
-            for (User user : userList) {
-                if (board.getUser().getId().equals(user.getId())) {
-                    board.setUser(user);
-                }
-            }
-        }
+        boardList.forEach(board -> {
+            userList.stream()
+                    .filter(user -> user.getId().equals(board.getUser().getId()))
+                    .findFirst()
+                    .ifPresent(board::setUser);
+        });
 
         System.out.println(boardList);
 

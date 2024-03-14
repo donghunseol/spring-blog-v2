@@ -1,0 +1,37 @@
+package shop.mtcoding.blog.user;
+
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
+
+@Import(UserRepository.class) // IoC 등록 코드
+@DataJpaTest // Datasource (connection pool), EntityManager (PersistContext 를 관리하는 매니저)
+public class UserRepositoryTest {
+    @Autowired // DI
+    private UserRepository userRepository; // final을 사용하는 이유는? DI, IoC
+
+    @Test
+    public void findByUsername_test(){
+        // given
+        UserRequest.LoginDTO loginDTO = new UserRequest.LoginDTO();
+        loginDTO.setUsername("ssar");
+        loginDTO.setPassword("1234");
+
+        // when
+        User user = userRepository.findByUsername(loginDTO);
+        if(user == null){
+            System.out.println("findByUsername_test/username : 아이디가 틀렸습니다");
+        }else {
+            if (user.getPassword().equals(loginDTO.getPassword())){
+                System.out.println("findByUsername_test : 로그인 되었습니다");
+            }else {
+                System.out.println("findByUsername_test/password : 비밀번호가 틀렸습니다");
+            }
+        }
+
+        // then
+        Assertions.assertThat(user.getUsername()).isEqualTo("ssar");
+    }
+}
