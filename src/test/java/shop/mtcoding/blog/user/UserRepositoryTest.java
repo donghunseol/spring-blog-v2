@@ -1,5 +1,6 @@
 package shop.mtcoding.blog.user;
 
+import jakarta.persistence.EntityManager;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,35 @@ import org.springframework.context.annotation.Import;
 public class UserRepositoryTest {
     @Autowired // DI
     private UserRepository userRepository; // final을 사용하는 이유는? DI, IoC
+    @Autowired
+    private EntityManager em;
+
+    @Test
+    public void update_test(){
+        // given
+        int id = 1;
+        String password = "4321";
+        String email = "ssar@naver.com";
+
+        // when
+        userRepository.updateById(id,password,email);
+        em.flush();
+
+        // then
+
+    }
+
+    @Test
+    public void findById_test(){
+        // given
+        int id = 1;
+
+        // when
+        userRepository.findById(id);
+
+        // then
+
+    }
 
     @Test
     public void findByUsername_test(){

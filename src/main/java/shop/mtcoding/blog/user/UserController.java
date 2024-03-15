@@ -1,5 +1,6 @@
 package shop.mtcoding.blog.user;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,15 @@ public class UserController {
 
     private final UserRepository userRepository;
     private final HttpSession session;
+
+    @PostMapping("/user/update")
+    public String update(UserRequest.UpdateDTO requestDTO) {
+        User user = (User) session.getAttribute("sessionUser");
+        User updateSessionUser = userRepository.updateById(user.getId(), requestDTO.getPassword(), requestDTO.getEmail());
+        session.setAttribute("sessionUser", updateSessionUser);
+
+        return "redirect:/";
+    }
 
     @PostMapping("/join")
     public String join(UserRequest.JoinDTO requestDTO) {
@@ -39,7 +49,11 @@ public class UserController {
     }
 
     @GetMapping("/user/update-form")
-    public String updateForm() {
+    public String updateForm(HttpServletRequest request) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+
+        User user = userRepository.findById(sessionUser.getId());
+        request.setAttribute("user", user);
         return "user/update-form";
     }
 
