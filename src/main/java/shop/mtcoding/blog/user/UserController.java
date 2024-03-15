@@ -20,8 +20,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(UserRequest.LoginDTO requestDTO) {
-        User sessionUser = userRepository.findByUsername(requestDTO);
+    public String login(String username, String password) {
+        User sessionUser = userRepository.findByUsername(username, password);
         session.setAttribute("sessionUser", sessionUser);
         return "redirect:/";
     }

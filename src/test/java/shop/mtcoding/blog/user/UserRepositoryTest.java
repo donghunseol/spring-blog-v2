@@ -15,16 +15,18 @@ public class UserRepositoryTest {
     @Test
     public void findByUsername_test(){
         // given
+        String username = "ssar";
+        String password = "1234";
         UserRequest.LoginDTO loginDTO = new UserRequest.LoginDTO();
         loginDTO.setUsername("ssar");
         loginDTO.setPassword("1234");
 
         // when
-        User user = userRepository.findByUsername(loginDTO);
+        User user = userRepository.findByUsername(username, password);
         if(user == null){
             System.out.println("findByUsername_test/username : 아이디가 틀렸습니다");
         }else {
-            if (user.getPassword().equals(loginDTO.getPassword())){
+            if (user.getPassword().equals("1234")){
                 System.out.println("findByUsername_test : 로그인 되었습니다");
             }else {
                 System.out.println("findByUsername_test/password : 비밀번호가 틀렸습니다");

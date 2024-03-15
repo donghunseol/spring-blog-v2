@@ -25,6 +25,23 @@ public class BoardRepositoryTest {
     private EntityManager em;
 
     @Test
+    public void updateById_test() {
+        // given
+        int id = 1;
+        String title = "수정제목";
+        String content = "수정내용";
+
+        // when
+        boardRepository.updateById(id, title, content);
+        em.flush(); // 실제 코드는 작성할 필요가 없다. 이유는? 트랜잭션이 종료될꺼니까!\
+        Board board = boardRepository.findById(id);
+        System.out.println(board);
+
+        // then
+
+    }
+
+    @Test
     public void deleteById_test() {
         // given
         int id = 1;
@@ -60,7 +77,7 @@ public class BoardRepositoryTest {
 
         int num = 1;
         for (int i : userIds) {
-            query.setParameter("id"+num, i);
+            query.setParameter("id" + num, i);
             num++;
             System.out.println(userIds);
             System.out.println(i);

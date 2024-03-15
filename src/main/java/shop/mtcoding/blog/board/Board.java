@@ -41,4 +41,6 @@ public class Board { // 모델링 (DB 세상에 있는 값을 가져와서 모�
         this.user = user;
         this.createdAt = createdAt;
     }
+
+
 }

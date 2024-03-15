@@ -15,12 +15,22 @@ import java.util.stream.Collectors;
 public class BoardRepository {
     private final EntityManager em;
 
-@Transactional
-public void deleteById(int id) {
-    Query query = em.createQuery("delete from Board b where b.id=:id");
-    query.setParameter("id", id);
-    query.executeUpdate();
-}
+    // update board_tb set title = ? where id = ?
+    // update board_tb set content = ? where id = ?
+    // update board_tb set title = ?, content = ? where id = ?
+    @Transactional
+    public void updateById(int id, String title, String content) {
+        Board board = findById(id);
+        board.setTitle(title);
+        board.setContent(content);
+    } // 더티 체킹
+
+    @Transactional
+    public void deleteById(int id) {
+        Query query = em.createQuery("delete from Board b where b.id=:id");
+        query.setParameter("id", id);
+        query.executeUpdate();
+    }
 
     @Transactional
     public Board save(Board board) {
