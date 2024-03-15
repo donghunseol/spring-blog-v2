@@ -40,9 +40,9 @@ public class BoardController {
 
     @PostMapping("/board/{id}/delete")
     public String del(@PathVariable Integer id) {
+        boardRepository.deleteById(id);
         return "redirect:/";
     }
-
 
     @GetMapping("/")
     public String index(HttpServletRequest request) {

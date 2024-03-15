@@ -3,6 +3,7 @@ package shop.mtcoding.blog.board;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import org.assertj.core.api.AbstractObjectArrayAssert;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -22,6 +23,18 @@ public class BoardRepositoryTest {
 
     @Autowired
     private EntityManager em;
+
+    @Test
+    public void deleteById_test() {
+        // given
+        int id = 1;
+
+        // when
+        boardRepository.deleteById(id); // delete query 발동함
+
+        // then
+        Assertions.assertThat(boardRepository.findAll().size()).isEqualTo(3);
+    }
 
     @Test
     public void readomquery_test() {
