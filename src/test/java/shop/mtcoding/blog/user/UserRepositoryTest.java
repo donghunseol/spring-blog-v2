@@ -43,7 +43,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void findByUsername_test(){
+    public void findByUsernameAndPassword_test(){
         // given
         String username = "ssar";
         String password = "1234";
@@ -52,7 +52,7 @@ public class UserRepositoryTest {
         loginDTO.setPassword("1234");
 
         // when
-        User user = userRepository.findByUsername(username, password);
+        User user = userRepository.findByUsernameAndPassword(username, password);
         if(user == null){
             System.out.println("findByUsername_test/username : 아이디가 틀렸습니다");
         }else {

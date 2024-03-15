@@ -26,12 +26,12 @@ public class UserRepository {
     }
 
     @Transactional
-    public User save(User user){
+    public User save(User user) {
         em.persist(user);
         return user;
     }
 
-    public User findByUsername(String username, String password){
+    public User findByUsernameAndPassword(String username, String password) {
         Query query = em.createQuery("SELECT u FROM User u WHERE u.username=:username AND u.password=:password", User.class);
         query.setParameter("username", username);
         query.setParameter("password", password);
