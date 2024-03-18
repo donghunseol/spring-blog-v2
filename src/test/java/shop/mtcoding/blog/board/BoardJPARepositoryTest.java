@@ -62,11 +62,10 @@ public class BoardJPARepositoryTest {
         int id = 1;
 
         // when
-        Board board = boardJPARepository.findByIdJoinUser(id);
+        Optional<Board> board = boardJPARepository.findByIdJoinUser(id);
 
         // then
-        System.out.println("findByIdJoinUser_test/boardTitle : " + board.getTitle());
-        System.out.println("findByIdJoinUser_test/userUsername : " + board.getUser().getUsername());
+
     }
 
     // findAll (sort)
