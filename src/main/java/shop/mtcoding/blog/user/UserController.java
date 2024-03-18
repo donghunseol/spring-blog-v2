@@ -41,14 +41,10 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(String username, String password) {
-        try {
-            User sessionUser = userRepository.findByUsernameAndPassword(username, password);
-            session.setAttribute("sessionUser", sessionUser);
-            return "redirect:/";
-        } catch (EmptyResultDataAccessException e) {
-            throw new Exception401("아이디 혹은 비밀번호가 틀렸습니다");
-        }
+    public String login(UserRequest.LoginDTO requestDTO) {
+        User sessionUser = userService.로그인(requestDTO);
+        session.setAttribute("sessionUser", sessionUser);
+        return "redirect:/";
     }
 
     @GetMapping("/login-form")
