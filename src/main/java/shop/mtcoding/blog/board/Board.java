@@ -33,6 +33,9 @@ public class Board { // 모델링 (DB 세상에 있는 값을 가져와서 모�
     @CreationTimestamp // pc -> db 로 들어 갈때 (날짜 주입)
     private Timestamp createdAt;
 
+    @Transient // 테이블 생성이 안됨
+    private boolean isOwner;
+
     @Builder
     public Board(Integer id, String title, String content, User user, Timestamp createdAt) {
         this.id = id;
