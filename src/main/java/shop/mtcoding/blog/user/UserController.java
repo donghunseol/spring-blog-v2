@@ -34,7 +34,7 @@ public class UserController {
             userRepository.save(requestDTO.toEntity());
             return "redirect:/";
         } catch (DataIntegrityViolationException e) {
-            throw new Exception400("동일한 아이디가 존재합니다");
+            throw new Exception400("동일한 아이디it 가 존재합니다");
         }
     }
 
