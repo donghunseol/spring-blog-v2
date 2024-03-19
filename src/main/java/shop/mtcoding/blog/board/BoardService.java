@@ -46,7 +46,6 @@ public class BoardService {
     // RunTimeException 이 일어나면 rollback 된다
     @Transactional
     public void 글삭제(Integer boardId, Integer sessionUserId) {
-        boardJPARepository.deleteById(boardId);
         Board board = boardJPARepository.findById(boardId)
                 .orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다"));
 
@@ -54,6 +53,7 @@ public class BoardService {
             throw new Exception403("게시글을 삭제할 권한이 없습니다");
         }
 
+        boardJPARepository.deleteById(boardId);
     }
 
     public List<Board> 글목록조회() {
