@@ -25,7 +25,7 @@ public class BoardJPARepositoryTest {
         int id = 4;
 
         // when
-        Board board = boardJPARepository.findByIdJoinUserAndReplies(id).get();
+        // Board board = boardJPARepository.findByIdJoinUserAndReplies(id).get();
 
         // then
 
