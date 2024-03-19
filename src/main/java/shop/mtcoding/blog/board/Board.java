@@ -38,6 +38,7 @@ public class Board { // 모델링 (DB 세상에 있는 값을 가져와서 모�
 
     // 조회할 때 담는 용도로만 사용한다. (조회를 2회 해서 담는다[board, reply])
     // 하지만 필드가 되면 안된다. (FK 의 주인을 설정 해준다, Entity 객체의 변수명 == FK 의 주인)
+    @OrderBy("id desc") // 댓글 목록 정렬
     @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Reply> replies = new ArrayList<>(); // new 를 하는 이유는 만약에 댓글이 없으면 터질 가능성이 있어서 new 를 해준다. (replies : [] 이렇게 보이게 하기 위해서)
 
