@@ -23,7 +23,7 @@ public class BoardService {
     }
 
     @Transactional
-    public void 글수정(int boardId, int sessionUserId, BoardRequest.UpdateDTO reqDTO) {
+    public Board 글수정(int boardId, int sessionUserId, BoardRequest.UpdateDTO reqDTO) {
         // 1. 조회 및 예외처리
         Board board = boardJPARepository.findById(boardId)
                 .orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다"));
@@ -36,11 +36,14 @@ public class BoardService {
         // 3. 글수정
         board.setTitle(reqDTO.getTitle());
         board.setContent(reqDTO.getContent());
+
+        return board;
     } // 더티체킹
 
     @Transactional
-    public void 글쓰기(BoardRequest.SaveDTO reqDTO, User sessionUser) {
-        boardJPARepository.save(reqDTO.toEntity(sessionUser));
+    public Board 글쓰기(BoardRequest.SaveDTO reqDTO, User sessionUser) {
+        Board board = boardJPARepository.save(reqDTO.toEntity(sessionUser));
+        return board;
     }
 
     // RunTimeException 이 일어나면 rollback 된다
