@@ -20,27 +20,28 @@ public class BoardController {
     private final BoardService boardService;
     private final HttpSession session;
 
-    // TODO: 글조회 API 필요
-    // TODO: 글목록조회 API 필요
-    // TODO: 글상세보기 API 필요
+    // TODO: 글목록조회 API 필요 -> @GetMapping("/api/boards/{id}")
 
-    @PostMapping("/board/save")
+    // TODO: 글상세보기 API 필요 -> @GetMapping("/api/boards/{id}/detail")
+
+    // TODO: 글조회 API 필요 -> @GetMapping("/")
+
+
+    @PostMapping("/api/boards")
     public String save(BoardRequest.SaveDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         boardService.글쓰기(reqDTO, sessionUser);
         return "redirect:/";
     }
 
-    @PostMapping("/board/{id}/update")
+    @PutMapping("/api/boards/{id}")
     public String update(@PathVariable Integer id, BoardRequest.UpdateDTO reqDTO) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         boardService.글수정(id, sessionUser.getId(), reqDTO);
         return "redirect:/board/" + id;
     }
 
-
-
-    @PostMapping("/board/{id}/delete")
+    @DeleteMapping("/api/boards/{id}")
     public String delete(@PathVariable Integer id) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         boardService.글삭제(id, sessionUser.getId());
